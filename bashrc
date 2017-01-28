@@ -125,4 +125,3 @@ export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\u\[\e[0
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-set -o vi
