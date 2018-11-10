@@ -39,43 +39,26 @@ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 
 # if the command-not-found package is installed, use it
 if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
-	function command_not_found_handle {
-	        # check because c-n-f could've been removed in the meantime
-                if [ -x /usr/lib/command-not-found ]; then
-		   /usr/bin/python /usr/lib/command-not-found -- "$1"
-                   return $?
-                elif [ -x /usr/share/command-not-found/command-not-found ]; then
-		   /usr/bin/python /usr/share/command-not-found/command-not-found -- "$1"
-                   return $?
-		else
-		   printf "%s: command not found\n" "$1" >&2
-		   return 127
-		fi
-	}
+    function command_not_found_handle {
+        # check because c-n-f could've been removed in the meantime
+        if [ -x /usr/lib/command-not-found ]; then
+            /usr/bin/python /usr/lib/command-not-found -- "$1"
+            return $?
+        elif [ -x /usr/share/command-not-found/command-not-found ]; then
+            /usr/bin/python /usr/share/command-not-found/command-not-found -- "$1"
+            return $?
+        else
+            printf "%s: command not found\n" "$1" >&2
+            return 127
+        fi
+    }
 fi
 
-# === Cmon's part ================================================================================
-
-# == Some aliases
-alias ll='ls -l'
-alias lla='ls -la'
-alias l='ls -CF'
-alias c='clear'
-alias less='less --quiet'
-alias s='cd ..'
-alias df='df --human-readable'
-alias du='du --human-readable'
-alias m='mutt -y'
-alias md='mkdir'
-alias rd='rmdir'
-
-
 # == PS1
-
 if [ "`id -u`" -eq 0 ]; then
-	export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+    export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 else
-	export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+    export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 fi
 
 # ================================================================================================
