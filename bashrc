@@ -118,4 +118,10 @@ else
     export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
 fi
 
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
+# base16 themes
+#base16_material-darker
+#base16_monokai
+
 # End specific mnc conf
