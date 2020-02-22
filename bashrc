@@ -8,6 +8,8 @@ case $- in
       *) return;;
 esac
 
+shopt -s autocd # cd in directory by typing the directory name
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -16,8 +18,9 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# Unlimited history size
+HISTSIZE=
+HISTFILESIZE=
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -85,7 +88,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -lh'
@@ -97,7 +100,6 @@ alias lla='ls -lAh'
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -114,14 +116,22 @@ if ! shopt -oq posix; then
 fi
 
 # Begin specific conf
+export COLOR_RED="\[\e[91m\]"
+export COLOR_GRE="\[\e[92m\]"
+export COLOR_YEL="\[\e[93m\]"
+export COLOR_BLU="\[\e[94m\]"
+export COLOR_MAG="\[\e[95m\]"
+export COLOR_CYA="\[\e[96m\]"
+export COLOR_RES="\[\e[0m\]"
+
 if [ "`id -u`" -eq 0 ]; then
-    export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\$(__git_ps1) \[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+    export PS1="${COLOR_BLU}[${COLOR_YEL}\u${COLOR_YEL}@\h ${COLOR_MAG}\w${COLOR_RES}\$(__git_ps1)${COLOR_BLU}]${COLOR_RES}\\$ "
 else
-    export PS1="\[\e[01;36m\]\T\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\w\[\e[0m\]\$(__git_ps1) \[\e[01;33m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+    export PS1="${COLOR_RED}[${COLOR_YEL}\u${COLOR_BLU}@\h ${COLOR_MAG}\w${COLOR_RES}\$(__git_ps1)${COLOR_RED}]${COLOR_RES}\\$ "
 fi
 
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
+#BASE16_SHELL="$HOME/.config/base16-shell/"
+#[ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && eval "$("$BASE16_SHELL/profile_helper.sh")"
 # base16 themes
 #base16_material-darker
 #base16_monokai
