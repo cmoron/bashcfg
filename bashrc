@@ -90,6 +90,10 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+if [ -f "/usr/share/git/completion/git-prompt.sh" ]; then
+    . "/usr/share/git/completion/git-prompt.sh"
+fi
+
 # some more ls aliases
 alias ll='ls -lh'
 alias la='ls -A'
@@ -122,12 +126,13 @@ export COLOR_YEL="\[\e[93m\]"
 export COLOR_BLU="\[\e[94m\]"
 export COLOR_MAG="\[\e[95m\]"
 export COLOR_CYA="\[\e[96m\]"
+export COLOR_WHI="\[\e[97m\]"
 export COLOR_RES="\[\e[0m\]"
 
 if [ "`id -u`" -eq 0 ]; then
-    export PS1="${COLOR_BLU}[${COLOR_YEL}\u${COLOR_YEL}@\h ${COLOR_MAG}\w${COLOR_RES}\$(__git_ps1)${COLOR_BLU}]${COLOR_RES}\\$ "
+    export PS1="${COLOR_BLU}\u${COLOR_WHI}@\h \W\$(__git_ps1) \\$ ${COLOR_RES}"
 else
-    export PS1="${COLOR_RED}[${COLOR_YEL}\u${COLOR_BLU}@\h ${COLOR_MAG}\w${COLOR_RES}\$(__git_ps1)${COLOR_RED}]${COLOR_RES}\\$ "
+    export PS1="${COLOR_RED}\u${COLOR_WHI}@\h \W\$(__git_ps1) \\$ ${COLOR_RES}"
 fi
 
 #BASE16_SHELL="$HOME/.config/base16-shell/"
